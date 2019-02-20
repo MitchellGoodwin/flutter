@@ -33,6 +33,7 @@ export 'src/painting/circle_border.dart';
 export 'src/painting/clip.dart';
 export 'src/painting/colors.dart';
 export 'src/painting/continuous_rectangle_border.dart';
+export 'src/painting/continuous_stadium_border.dart';
 export 'src/painting/debug.dart';
 export 'src/painting/decoration.dart';
 export 'src/painting/decoration_image.dart';

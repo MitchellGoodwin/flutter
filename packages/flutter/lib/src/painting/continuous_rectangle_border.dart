@@ -55,7 +55,7 @@ class ContinuousRectangleBorder extends ShapeBorder {
     this.side = BorderSide.none,
     this.borderRadius = 1.0,
   }) : assert(side != null),
-       assert(borderRadius != null);
+        assert(borderRadius != null);
 
   /// The radius for each corner.
   ///

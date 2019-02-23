@@ -7,6 +7,8 @@
 @Tags(<String>['reduced-test-set'])
 library;
 
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -150,7 +152,7 @@ void main() {
     await tester.pumpAndSettle();
     await expectLater(
       find.byKey(key),
-      matchesGoldenFile('m2_bottom_app_bar.custom_shape.2.png'),
+      matchesGoldenFile('m2_bottom_app_bar.custom_shape.2.png'),785205b03c (adds linux exculsion golden test)
     );
   }, skip: isBrowser); // https://github.com/flutter/flutter/issues/44572
 

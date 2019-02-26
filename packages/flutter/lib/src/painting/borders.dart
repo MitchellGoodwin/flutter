@@ -364,8 +364,9 @@ class BorderSide with Diagnosticable {
 /// This class handles how to add multiple borders together. Subclasses define
 /// various shapes, like circles ([CircleBorder]), rounded rectangles
 /// ([RoundedRectangleBorder]), continuous rectangles
-/// ([ContinuousRectangleBorder]), or beveled rectangles
-/// ([BeveledRectangleBorder]).
+/// ([ContinuousRectangleBorder]), beveled rectangles
+/// ([BeveledRectangleBorder]), stadiums ([StadiumBorder]), or continuous
+/// stadiums ([ContinuousStadiumBorder]).
 ///
 /// See also:
 ///

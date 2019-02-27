@@ -39,9 +39,9 @@ void main() {
   });
 
   test('Continuous rectangle border scale and lerp', () {
-    const ContinuousRectangleBorder c10 = ContinuousRectangleBorder(side: BorderSide(width: 10.0), borderRadius: 100.0);
-    const ContinuousRectangleBorder c15 = ContinuousRectangleBorder(side: BorderSide(width: 15.0), borderRadius: 150.0);
-    const ContinuousRectangleBorder c20 = ContinuousRectangleBorder(side: BorderSide(width: 20.0), borderRadius: 200.0);
+    const ContinuousRectangleBorder c10 = ContinuousRectangleBorder(side: BorderSide(width: 10.0), cornerRadius: 100.0);
+    const ContinuousRectangleBorder c15 = ContinuousRectangleBorder(side: BorderSide(width: 15.0), cornerRadius: 150.0);
+    const ContinuousRectangleBorder c20 = ContinuousRectangleBorder(side: BorderSide(width: 20.0), cornerRadius: 200.0);
     expect(c10.dimensions, const EdgeInsets.all(10.0));
     expect(c10.scale(2.0), c20);
     expect(c20.scale(0.5), c10);
@@ -258,7 +258,7 @@ void main() {
           child: Material(
             color: Colors.blueAccent[400],
             shape: const ContinuousRectangleBorder(
-              borderRadius: 28.0,
+              cornerRadius: 28.0,
             ),
             child: const SizedBox(
               height: 100,
@@ -286,7 +286,7 @@ void main() {
           child: Material(
             color: Colors.blueAccent[400],
             shape: const ContinuousRectangleBorder(
-              borderRadius: 28.0,
+              cornerRadius: 28.0,
             ),
             child: const SizedBox(
               height: 10,
@@ -314,7 +314,7 @@ void main() {
           child: Material(
             color: Colors.blueAccent[400],
             shape: const ContinuousRectangleBorder(
-              borderRadius: 28.0,
+              cornerRadius: 28.0,
             ),
             child: const SizedBox(
               height: 5,
@@ -342,7 +342,7 @@ void main() {
           child: Material(
             color: Colors.blueAccent[400],
             shape: const ContinuousRectangleBorder(
-              borderRadius: 50.0,
+              cornerRadius: 50.0,
             ),
             child: const SizedBox(
               height: 300,

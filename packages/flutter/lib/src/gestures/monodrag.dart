@@ -653,6 +653,7 @@ sealed class DragGestureRecognizer extends OneSequenceGestureRecognizer {
   @override
   void handleEvent(PointerEvent event) {
     assert(_state != _DragState.ready);
+    print('Handle Event ');
     if (!event.synthesized &&
         (event is PointerDownEvent ||
             event is PointerMoveEvent ||
@@ -663,7 +664,10 @@ sealed class DragGestureRecognizer extends OneSequenceGestureRecognizer {
         PointerPanZoomUpdateEvent() => event.pan,
         _ => event.localPosition,
       };
+      print('Velocity Tracker made');
       _velocityTrackers[event.pointer]!.addPosition(event.timeStamp, position);
+    } else {
+      print(event);
     }
     if (event is PointerMoveEvent && event.buttons != _initialButtons) {
       _giveUpPointer(event.pointer);
@@ -879,6 +883,8 @@ sealed class DragGestureRecognizer extends OneSequenceGestureRecognizer {
 
     final VelocityTracker tracker = _velocityTrackers[pointer]!;
     final VelocityEstimate? estimate = tracker.getVelocityEstimate();
+    print('Velocity estimate');
+    print(estimate);
 
     DragEndDetails? details;
     final String Function() debugReport;

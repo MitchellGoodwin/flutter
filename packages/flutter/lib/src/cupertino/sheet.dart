@@ -158,38 +158,37 @@ Future<T?> showCupertinoSheet<T>({
   if (!useNestedNavigation) {
     builder = pageBuilder!;
   } else {
-    builder =
-        pageBuilder != null
-            ? (BuildContext context) {
-              return NavigatorPopHandler(
-                onPopWithResult: (T? result) {
-                  nestedNavigatorKey.currentState!.maybePop();
+    builder = pageBuilder != null
+        ? (BuildContext context) {
+            return NavigatorPopHandler(
+              onPopWithResult: (T? result) {
+                nestedNavigatorKey.currentState!.maybePop();
+              },
+              child: Navigator(
+                key: nestedNavigatorKey,
+                initialRoute: '/',
+                onGenerateInitialRoutes: (NavigatorState navigator, String initialRouteName) {
+                  return <Route<void>>[
+                    CupertinoPageRoute<void>(
+                      builder: (BuildContext context) {
+                        return PopScope(
+                          canPop: false,
+                          onPopInvokedWithResult: (bool didPop, Object? result) {
+                            if (didPop) {
+                              return;
+                            }
+                            Navigator.of(context, rootNavigator: true).pop(result);
+                          },
+                          child: pageBuilder(context),
+                        );
+                      },
+                    ),
+                  ];
                 },
-                child: Navigator(
-                  key: nestedNavigatorKey,
-                  initialRoute: '/',
-                  onGenerateInitialRoutes: (NavigatorState navigator, String initialRouteName) {
-                    return <Route<void>>[
-                      CupertinoPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return PopScope(
-                            canPop: false,
-                            onPopInvokedWithResult: (bool didPop, Object? result) {
-                              if (didPop) {
-                                return;
-                              }
-                              Navigator.of(context, rootNavigator: true).pop(result);
-                            },
-                            child: pageBuilder(context),
-                          );
-                        },
-                      ),
-                    ];
-                  },
-                ),
-              );
-            }
-            : null;
+              ),
+            );
+          }
+        : null;
   }
   // Todo: handle scrollableBuilder with nested navigation as well.
 
@@ -279,18 +278,17 @@ class CupertinoSheetTransition extends StatefulWidget {
     final bool isDarkMode = CupertinoTheme.brightnessOf(context) == Brightness.dark;
     final Color overlayColor = isDarkMode ? const Color(0xFFc8c8c8) : const Color(0xFF000000);
 
-    final Widget? contrastedChild =
-        child != null && !secondaryAnimation.isDismissed
-            ? Stack(
-              children: <Widget>[
-                child,
-                FadeTransition(
-                  opacity: opacityAnimation,
-                  child: ColoredBox(color: overlayColor, child: const SizedBox.expand()),
-                ),
-              ],
-            )
-            : child;
+    final Widget? contrastedChild = child != null && !secondaryAnimation.isDismissed
+        ? Stack(
+            children: <Widget>[
+              child,
+              FadeTransition(
+                opacity: opacityAnimation,
+                child: ColoredBox(color: overlayColor, child: const SizedBox.expand()),
+              ),
+            ],
+          )
+        : child;
 
     final double topGapHeight = MediaQuery.sizeOf(context).height * _kTopGapRatio;
 
@@ -314,10 +312,9 @@ class CupertinoSheetTransition extends StatefulWidget {
               child: child,
               builder: (BuildContext context, Widget? child) {
                 return ClipRSuperellipse(
-                  borderRadius:
-                      !secondaryAnimation.isDismissed
-                          ? radiusAnimation.value
-                          : BorderRadius.circular(0),
+                  borderRadius: !secondaryAnimation.isDismissed
+                      ? radiusAnimation.value
+                      : BorderRadius.circular(0),
                   child: contrastedChild,
                 );
               },
@@ -442,10 +439,9 @@ class _CupertinoSheetTransitionState extends State<CupertinoSheetTransition>
     bool linearTransition,
     Widget? child,
   ) {
-    final Animatable<Offset> offsetTween =
-        CupertinoSheetRoute.hasParentSheet(context)
-            ? _kBottomUpTweenWhenCoveringOtherSheet
-            : _kBottomUpTween;
+    final Animatable<Offset> offsetTween = CupertinoSheetRoute.hasParentSheet(context)
+        ? _kBottomUpTweenWhenCoveringOtherSheet
+        : _kBottomUpTween;
 
     final CurvedAnimation curvedAnimation = CurvedAnimation(
       parent: animation,
@@ -774,12 +770,11 @@ class _CupertinoDragGestureDetectorState<T> extends State<_CupertinoDragGestureD
   @override
   void initState() {
     super.initState();
-    _recognizer =
-        VerticalDragGestureRecognizer(debugOwner: this)
-          ..onStart = _handleDragStart
-          ..onUpdate = _handleDragUpdate
-          ..onEnd = _handleDragEnd
-          ..onCancel = _handleDragCancel;
+    _recognizer = VerticalDragGestureRecognizer(debugOwner: this)
+      ..onStart = _handleDragStart
+      ..onUpdate = _handleDragUpdate
+      ..onEnd = _handleDragEnd
+      ..onCancel = _handleDragCancel;
     _velocityTracker = _SheetVelocityTracker();
   }
 
@@ -822,8 +817,7 @@ class _CupertinoDragGestureDetectorState<T> extends State<_CupertinoDragGestureD
       _dragGestureController!.dragUpdate(
         // Divide by size of the sheet.
         details.primaryDelta! / (context.size!.height - (context.size!.height * _kTopGapRatio)),
-        _stretchDragController!.controller
-      );
+        _stretchDragController!.controller,
       );
     }
     _velocityTracker.velocity =
@@ -873,7 +867,10 @@ class _CupertinoDragGestureDetectorState<T> extends State<_CupertinoDragGestureD
         print(widget.scrollController?.position);
       }
     } else {
-      _dragGestureController!.dragEnd(details.velocity.pixelsPerSecond.dy / context.size!.height);
+      _dragGestureController!.dragEnd(
+        details.velocity.pixelsPerSecond.dy / context.size!.height,
+        _stretchDragController!.controller,
+      );
     }
     // _downGestureController!.dragEnd(details.velocity.pixelsPerSecond.dy / context.size!.height);
     _dragGestureController = null;
